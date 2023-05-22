@@ -1,0 +1,22 @@
+{
+  "name": "moneytrack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jhk2463/MoneyTrack.git"
+  },
+  "author": "Jinhyeok Kim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jhk2463/MoneyTrack/issues"
+  },
+  "homepage": "https://github.com/jhk2463/MoneyTrack#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
