@@ -37,6 +37,10 @@ body, .quote-input {
     margin-right: calc(1rem + 2px);
 }
 
+.quote-display span{
+    position: relative;
+}
+
 .quote-input {
     background-color: transparent;
     border: 2px solid rgb(187, 216, 241);
@@ -51,7 +55,7 @@ body, .quote-input {
 }
 
 .quote-input:focus {
-    border-color: black;
+    border-color: rgb(0, 0, 0);
 }
 
 .correct {
@@ -60,5 +64,28 @@ body, .quote-input {
 
 .incorrect {
     color: red;
-    text-decoration: underline;
+    background-color: rgb(255, 219, 219);
+    outline: 1px solid #fff;
+    border-radius: 4px;
+}
+
+.active {
+    color: rgb(3, 187, 194);
+}
+
+.active::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    opacity: 0;
+    background: rgb(3, 187, 194);
+    animation: blink 1s ease-in-out infinite;
+}
+@keyframes blink {
+    50%{
+        opacity: 1;
+    }
 }
