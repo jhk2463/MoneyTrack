@@ -11,14 +11,18 @@
 </head>
 
 <body>
-    <div class="timer" id="timer">Time: <span>0</span> </div>
+    <div class="timer" id="timer">Time: <span>60</span> </div>
 
     <div class="container">
         <div class="quote-display" id="quoteDisplay">display</div>
         <textarea class="quote-input" id="quoteInput" autofocus>input</textarea>
-        <div class="mistake">Mistakes: <span>0</span> </div>
-        <div class="wpm">WPM: <span>0</span> </div>
-        <div class="cpm">CPM: <span>0</span> </div>
+        
+        <div class = "popup" id="popup">
+            <div class="mistake">Mistakes: <span>0</span> </div>
+            <div class="wpm">WPM: <span>0</span> </div>
+            <div class="cpm">CPM: <span>0</span> </div>
+            <button type="button" onclick="closePopup()">Try Again</button>
+        </div>
     </div>
 
 </body>

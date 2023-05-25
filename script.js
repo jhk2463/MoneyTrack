@@ -1,20 +1,29 @@
 const RANDOM_QUOTE_API_URL = 'http://api.quotable.io/random';
 const quoteDisplayElement = document.getElementById('quoteDisplay');
 const quoteInputElement = document.getElementById('quoteInput');
+const popupElement = document.getElementById('popup');
 const timerTag = document.querySelector('.timer span');
 const mistakeTag = document.querySelector('.mistake span');
 const wpmTag = document.querySelector('.wpm span');
 const cpmTag = document.querySelector('.cpm span');
 
+let timer;
+const maxTime = 60;
+let timeLeft = maxTime;
 let mistakes = 0;
 let charIndex = 0;
+let quote;
 
 // Called on every input
 quoteInputElement.addEventListener('input', () => {
+    
     const arrayQuote = quoteDisplayElement.querySelectorAll('span');   // Get the whole quote as array of characters
     let typedChar = quoteInputElement.value.split('')[charIndex];      // Split up input into array of characters and get current character
-    let correct = true;
 
+    if (charIndex == 0 && typedChar != null){                          // Start timer once user starts typing
+        startTimer(); 
+    }
+     
     if (typedChar == null) {                                           // If input is backspace, decrement index, remove green or red
         charIndex--;
         if (arrayQuote[charIndex].classList.contains('incorrect')) {   // If user deletes incorrect character, decrement mistakes
@@ -33,33 +42,17 @@ quoteInputElement.addEventListener('input', () => {
     }
     
     arrayQuote.forEach(charSpan => charSpan.classList.remove('active'));    // Make sure none of the others are highlighted
-    arrayQuote[charIndex].classList.add('active');                          // Current character is highlighted
-    /*
-    arrayQuote.forEach((characterSpan, index) => {                     
-        const character = arrayValue[index];
 
-        characterSpan.classList.remove('active');
-        if (character == null && arrayValue[index-1] != null) {     // Current character is highlighted
-            characterSpan.classList.add('active');
-        }
-
-        if (character == null) {                                       // If input is null, quote is black
-            characterSpan.classList.remove('correct');
-            characterSpan.classList.remove('incorrect');
-            correct = false;
-        } else if (character === characterSpan.innerText){             // If input matches, quote is green
-            characterSpan.classList.add('correct');
-            characterSpan.classList.remove('incorrect');
-        } else {                                                       // If input does not match, quote is red
-            characterSpan.classList.remove('correct');                 // increment mistakes
-            characterSpan.classList.add('incorrect');
-            mistakes++;
-            correct = false;
-        }
-    })
-    */
+    if (arrayQuote[charIndex] == null) {
+        openPopup();                                                        // Open popup once quote is finished
+    } else {
+        arrayQuote[charIndex].classList.add('active');                      // Current character is highlighted
+    }
+    
+    const timeElapsed = maxTime - timerTag.innerText;
     mistakeTag.innerText = mistakes;
-    //if (correct) renderNewQuote();                                     // If everything typed correctly, move on to new quote
+    cpmTag.innerText = Math.floor((charIndex - mistakes) / timeElapsed * 60);
+    wpmTag.innerText = Math.floor((quote.split(' ').length) / timeElapsed * 60);
 })
 
 // API call to get random quote
@@ -71,7 +64,7 @@ function getRandomQuote() {
 
 // Rendering quote on screen
 async function renderNewQuote() { 
-    const quote = await getRandomQuote();
+    quote = await getRandomQuote();
     quoteDisplayElement.innerHTML = '';                         // Initialize empty display
     quote.split('').forEach(character => {                      // Split quote into array of characters and loop through
         const characterSpan = document.createElement('span');   // Make each character a span
@@ -79,21 +72,55 @@ async function renderNewQuote() {
         quoteDisplayElement.appendChild(characterSpan);         // Append each character to the display element
     })
     quoteInputElement.value = null;
-    startTimer();                                               // New timer for new quote
+    //startStopwatch();                                               // New timer for new quote
 }
 
-// Continuously update time elapsed
 let startTime;
+// Timer Function
 function startTimer() {
-    timerTag.innerText = 0;
+    timerTag.innerText = maxTime;
     startTime = new Date();
     setInterval(() => {
         timerTag.innerText = getTimerTime()
+        if (timerTag.innerText == 0) {
+            openPopup();
+        }
     }, 1000);
 }
 
 function getTimerTime() {
+    return Math.floor(maxTime - (new Date() - startTime) / 1000);     // Calculate time left, convert to seconds, round to integer
+}
+
+// Stopwatch Function
+function startStopwatch() {
+    timerTag.innerText = 0;
+    startTime = new Date();
+    setInterval(() => {
+        timerTag.innerText = getStopwatchTime()
+    }, 1000);
+}
+
+function getStopwatchTime() {
     return Math.floor((new Date() - startTime) / 1000);     // Calculate time elapsed, convert to seconds, round to integer
+}
+
+// Reset key variables to start new game
+function resetGame() {
+    mistakes = 0;
+    charIndex = 0;
+}
+
+// Make popup visible
+function openPopup() {                    
+    popupElement.classList.add('open-popup');
+}
+
+// Make popup invisible and call necessary functions to restart new game
+function closePopup() {
+    popupElement.classList.remove('open-popup');
+    renderNewQuote();
+    resetGame();
 }
 
 renderNewQuote();

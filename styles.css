@@ -89,3 +89,22 @@ body, .quote-input {
         opacity: 1;
     }
 }
+
+.popup {
+    background-color: aliceblue;
+    padding: 1rem;
+    border-radius: .5rem;
+    border: 2px solid rgb(0, 0, 0);
+    width: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    text-align: center;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    visibility: hidden;
+}
+
+.open-popup {
+    visibility: visible;
+}
