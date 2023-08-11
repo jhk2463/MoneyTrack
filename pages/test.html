@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <script src="../assets/js/script.js" defer></script>
+    <title>typewithme</title>
+</head>
+
+<body>
+    <div class="home-button">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+            </ul>
+        </nav>
+    </div>
+    
+
+    <div class="timer" id="timer">Time: <span>60</span> </div>
+
+    <div class="input">
+        <div class="quote-display" id="quoteDisplay">display</div>
+        <textarea class="quote-input" id="quoteInput" autofocus>input</textarea>
+        
+        <div class = "popup" id="popup">
+            <div class="mistake">Mistakes: <span>0</span> </div>
+            <div class="wpm">WPM: <span>0</span> </div>
+            <div class="cpm">CPM: <span>0</span> </div>
+            <button type="button" onclick="closePopup()">Try Again</button>
+        </div>
+    </div>
+
+</body>
+
+</html>

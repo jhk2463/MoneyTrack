@@ -13,6 +13,7 @@ let timeLeft = maxTime;
 let mistakes = 0;
 let charIndex = 0;
 let quote;
+let intervalID;
 
 // Called on every input
 quoteInputElement.addEventListener('input', () => {
@@ -44,7 +45,8 @@ quoteInputElement.addEventListener('input', () => {
     arrayQuote.forEach(charSpan => charSpan.classList.remove('active'));    // Make sure none of the others are highlighted
 
     if (arrayQuote[charIndex] == null) {
-        openPopup();                                                        // Open popup once quote is finished
+        clearInterval(intervalID);                                          // Stop timer once entire quote has been typed
+        openPopup();                                                        // Open results window
     } else {
         arrayQuote[charIndex].classList.add('active');                      // Current character is highlighted
     }
@@ -72,24 +74,23 @@ async function renderNewQuote() {
         quoteDisplayElement.appendChild(characterSpan);         // Append each character to the display element
     })
     quoteInputElement.value = null;
-    //startStopwatch();                                               // New timer for new quote
+    timerTag.innerText = maxTime;
 }
 
 let startTime;
 // Timer Function
 function startTimer() {
-    timerTag.innerText = maxTime;
     startTime = new Date();
-    setInterval(() => {
+    intervalID = setInterval(() => {
         timerTag.innerText = getTimerTime()
         if (timerTag.innerText == 0) {
-            openPopup();
+            clearInterval(intervalID);          // Stop timer once it reaches 0
+            openPopup();                        // Open results window
         }
     }, 1000);
 }
-
 function getTimerTime() {
-    return Math.floor(maxTime - (new Date() - startTime) / 1000);     // Calculate time left, convert to seconds, round to integer
+    return Math.ceil(maxTime - (new Date() - startTime) / 1000);     // Calculate time left, convert to seconds, round to integer
 }
 
 // Stopwatch Function
@@ -100,7 +101,6 @@ function startStopwatch() {
         timerTag.innerText = getStopwatchTime()
     }, 1000);
 }
-
 function getStopwatchTime() {
     return Math.floor((new Date() - startTime) / 1000);     // Calculate time elapsed, convert to seconds, round to integer
 }

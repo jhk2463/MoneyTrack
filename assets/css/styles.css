@@ -4,31 +4,70 @@
 
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    background-color: rgb(186, 149, 221);
+    background-color: rgb(74, 73, 69);
 }
 
 body, .quote-input {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-.container {
-    background-color: aliceblue;
+nav li{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(160, 186, 209);
+    border: 4px solid rgb(113, 137, 158);
+    margin-top: 10px;
+    width: 300px;
+    height: 100px;
+    list-style-type: none;
+    text-decoration: none;
+}
+
+nav li:hover {
+    background-color: rgb(113, 137, 158);
+}
+
+nav a{
+    text-decoration: none;
+    color: black;
+    font-size: 70px;
+}
+
+.home-button{
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.home-button li{
+    width: 100px;
+    height: 40px;
+    border-width: 3px;
+}
+
+.home-button a{
+    font-size: 25px;
+}
+
+.timer {
+    font-size: 3rem;
+    color: rgb(227, 225, 201);
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.input {
+    background-color: rgb(227, 225, 201);
     padding: 1rem;
     border-radius: .5rem;
     width: 700px;
     max-width: 90%;
-}
-
-.timer {
-    position: absolute;
-    top: 2rem;
-    font-size: 3rem;
-    color: aliceblue;
-    font-weight: bold;
 }
 
 .quote-display {
@@ -43,7 +82,7 @@ body, .quote-input {
 
 .quote-input {
     background-color: transparent;
-    border: 2px solid rgb(187, 216, 241);
+    border: 2px solid rgb(174, 174, 174);
     outline: none;
     width: 100%;
     height: 8rem;
@@ -91,7 +130,7 @@ body, .quote-input {
 }
 
 .popup {
-    background-color: aliceblue;
+    background-color: rgb(227, 225, 201);
     padding: 1rem;
     border-radius: .5rem;
     border: 2px solid rgb(0, 0, 0);
